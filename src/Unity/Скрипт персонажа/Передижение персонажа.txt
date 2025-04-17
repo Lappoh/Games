@@ -1,0 +1,183 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Windows.Speech;
+using UnityEngine.SceneManagement;
+using TMPro;
+
+public class PlayerMovement : MonoBehaviour, IDataPersistence
+{
+    public GameObject DeathScreen;
+    private BoxCollider2D coll;
+    Vector2 mousePos;
+    private Vector3 respawnpoint;
+    private float horizontal;
+    private float speed = 1.4f;
+    private float jumpingPower = 4.7f;
+    private bool isFacingRight = true;
+
+    public Animator animator;
+
+    public static bool canDash = true;
+    private bool isDashing;
+    private float dashingPower = 2f;
+    private float dashingTime = 0.2f;
+    private float dashingCooldown = 1f;
+
+    private float vertical;
+    private float climbspeed = 2f;
+    private bool isLadder;
+    private bool isClimbing;
+
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private TrailRenderer tr;
+
+
+    public void LoadData(GameData data)
+    {
+        this.transform.position = data.playerPosition;
+    }
+
+    public void SaveData( ref GameData data)
+    {
+        data.playerPosition = respawnpoint;
+    }
+
+    private void Start()
+    {
+        coll = GetComponent<BoxCollider2D>();
+        respawnpoint = transform.position;
+        DeathScreen.SetActive(false);
+    }
+
+
+    void Update()
+    {
+        if(isDashing)
+        {
+            return;
+        }
+        
+        horizontal = Input.GetAxisRaw("Horizontal");
+
+        vertical = Input.GetAxis("Vertical");
+
+        animator.SetFloat("Speed", Mathf.Abs(horizontal));
+        if(!PauseMenu.IsPaused)
+        {
+        // Прыжок 
+            if(Input.GetButtonDown("Jump") && IsGrounded())
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpingPower);
+                
+            }
+        // Если кнопка прыжка всё ещё зажата высота прыжка будет увеличена
+            if(Input.GetButtonUp("Jump") && rb.velocity.y > 0f)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y * 0.5f);
+            }
+
+            if(Input.GetKeyDown(KeyCode.LeftShift) && canDash)
+            {
+                StartCoroutine(Dash());
+            }
+            if(Input.GetKeyDown(KeyCode.R))
+            {
+                DeathScreen.SetActive(false);
+                Time.timeScale = 1f;
+                transform.position = respawnpoint;
+            }
+            if(isLadder && Mathf.Abs(vertical) > 0f)
+            {
+                isClimbing = true;
+            }
+        }
+        if(IsGrounded())
+        {
+            canDash = true;
+        }
+        Flip();
+    }
+
+    private void FixedUpdate()
+    {
+        if(isDashing)
+        {
+            return;
+        }
+        if(isClimbing)
+        {
+            rb.gravityScale = 0f;
+            rb.velocity = new Vector2(rb.velocity.x, vertical * climbspeed);
+        }
+        else
+        {
+            rb.gravityScale = 2f;
+        }
+        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+    
+    }
+
+    private bool IsGrounded()
+    {
+        // Создание 2-го колайдера под игроком для проверки земли
+        return Physics2D.OverlapCircle(groundCheck.position, 0.04f, groundLayer);
+    }
+    
+    // Поворачивает текстуру персонажа если он будет смотреть на -180 градусов
+    private void Flip()
+    {
+        if(isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
+        {
+            isFacingRight = !isFacingRight;
+            Vector3 localScale = transform.localScale;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
+        } 
+    }
+
+    private IEnumerator Dash()
+    {
+        canDash = false;
+        isDashing = true; 
+        float originalGravity = rb.gravityScale;
+        rb.gravityScale = 0f;
+        rb.velocity = new Vector2(transform.localScale.x * dashingPower, 0f);
+        tr.emitting = true;
+        yield return new WaitForSeconds(dashingTime);
+        tr.emitting = false;
+        rb.gravityScale = originalGravity;
+        isDashing = false;
+    }
+
+    // Вызов какого либо действия при взаимодействии с невидимым объектов(Колизией)
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        // Если колизия будет с названием DeathZon, то персонаж будет телепортирован на последнюю точку сохранения
+        if(collision.tag == "DeathZone")
+        {
+            DeathScreen.SetActive(true);
+            Time.timeScale = 0f;
+        }
+        // Если колизия будет с названием Checkpoint, то предыдущее местоположения сохранения будет перезаписанно на новое
+        else if(collision.tag == "Checkpoint")
+        {
+            respawnpoint = transform.position;
+        }
+
+        if(collision.CompareTag("Ladder"))
+        {
+            isLadder = true;
+        }
+    }
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Ladder"))
+        {
+            isLadder = false;
+            isClimbing = false;
+        }
+    }
+}

@@ -13,47 +13,49 @@
 
 ## 2. Основы Unity
 ### 2.1 Интерфейс
-  Scene View – редактирование уровней.
-  Game View – тестирование игры.
-  Hierarchy – список объектов на сцене.
-  Inspector – настройка компонентов.
-  Project – файлы проекта.
-  Console – отладка ошибок.
+1. Scene View – редактирование уровней.
+2. Game View – тестирование игры.
+3. Hierarchy – список объектов на сцене.
+4. Inspector – настройка компонентов.
+5. Project – файлы проекта.
+6. Console – отладка ошибок.
 
 ### 2.2 Игровые объекты (GameObjects) и компоненты
-  GameObject – базовый объект (персонаж, платформа, свет).
-  Компоненты – добавляют функциональность (например, Rigidbody, Collider, Script).
+1. GameObject – базовый объект (персонаж, платформа, свет).
+2. Компоненты – добавляют функциональность (например, Rigidbody, Collider, Script).
 
 Пример: создание персонажа
-  1. GameObject → 3D Object → Capsule (игрок).
-  2. Добавьте компоненты:
-    Rigidbody (физика).
-    Box Collider (столкновения).
-    Character Controller (управление).
+1. GameObject → 3D Object → Capsule (игрок).
+2. Добавьте компоненты:
+   Rigidbody (физика).
+   Box Collider (столкновения).
+   Character Controller (управление).
 
-## 3. Скриптинг на С№
+## 3. Скриптинг на С#
 ### 3.1 Основы
 Скрипты должны наследоваться от MonoBehaviour.
+
 Основные методы для разработки передвижения:
- using UnityEngine;                                                                                                                        
- public class PlayerMovement : MonoBehaviour                               
- {                                                                         
-    public float speed = 5f;                                               
-    void Update() {                                                        
-       float moveX = Input.GetAxis("Horizontal") * speed * Time.deltaTime; 
-       float moveZ = Input.GetAxis("Vertical") * speed * Time.deltaTime;  
-       transform.Translate(moveX, 0, moveZ);                              
-     }                                                                      
- }                                                                         
+
+using UnityEngine;                                                                                                                        
+public class PlayerMovement : MonoBehaviour                               
+   {                                                                         
+public float speed = 5f;                                               
+void Update() {                                                        
+float moveX = Input.GetAxis("Horizontal") * speed * Time.deltaTime; 
+float moveZ = Input.GetAxis("Vertical") * speed * Time.deltaTime;  
+transform.Translate(moveX, 0, moveZ);                              
+}                                                                      
+}                                                                         
 
 ### 3.2 Популярные API Unity
-
-Метод/Класс	                 Описание            
-Input.GetKey()	       Проверка нажатия клавиш.   
-Instantiate()	     Создание объектов в runtime. 
-Destroy()	              Удаление объекта.       
-OnCollisionEnter()    Обработка столкновений.    
-Time.deltaTime	          Плавное движение.       
+Представлены методы/классы которые чаще всего используются при разработке игр и их описания:
+          
+Input.GetKey() - Проверка нажатия клавиш.   
+Instantiate() - Создание объектов в runtime. 
+Destroy() - Удаление объекта.       
+OnCollisionEnter() - Обработка столкновений.    
+Time.deltaTime - Плавное движение.       
 
 
 ## 4.Физика и коллизии
@@ -83,8 +85,8 @@ Time.deltaTime	          Плавное движение.
 
 ## 5. UI и меню
 ### 5.1 Canvas
+Представляет из себя белое полотно на которое можно наложить любые объекты, вызвать в любой момент или как-то взаимодействовать, для добавления полотна необходимо нажать следующее:
   GameObject → UI → Button/Text/Slider
-  Настройка через RectTransform.
   
 ### 5.2 Код для UI:
 
@@ -99,10 +101,10 @@ Time.deltaTime	          Плавное движение.
 
 ## 6. Оптимизация
 ### 6.1 Gроизводительность
-  Используйте Object Pooling вместо Instantiate/Destroy.
-  Оптимизируйте Draw Calls (объединяйте меши).
-  Отключайте ненужные Update() с помощью enabled = false.
-  
+Используйте Object Pooling вместо Instantiate/Destroy.
+Оптимизируйте Draw Calls (объединяйте меши).
+Отключайте ненужные Update() с помощью enabled = false.
+
 ### 6.2 Профилирование
   Window → Analysis → Profiler – анализ нагрузки.
   Frame Debugger – просмотр рендеринга.
@@ -112,10 +114,14 @@ Time.deltaTime	          Плавное движение.
 File → Build Settings → выберите платформу (PC, Android, WebGL).
 
 Для мобильных игр:
+
   Настройте Player Settings (разрешение, ориентацию).
+  
   Установите Keystore (для Android).
   
 ### 7.2 Публикация
   Steam/Itch.io – для ПК.
+  
   Google Play/App Store – для мобильных.
+  
   WebGL – для браузерных игр.

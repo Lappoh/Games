@@ -37,6 +37,8 @@
 
 Основные методы для разработки передвижения:
 
+'''C#
+
 using UnityEngine;                                                                                                                        
 public class PlayerMovement : MonoBehaviour                               
    {                                                                         
@@ -46,8 +48,9 @@ float moveX = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
 float moveZ = Input.GetAxis("Vertical") * speed * Time.deltaTime;  
 transform.Translate(moveX, 0, moveZ);                              
 }                                                                      
-}                                                                         
+}        
 
+'''
 ### 3.2 Популярные API Unity
 Представлены методы/классы которые чаще всего используются при разработке игр и их описания:
           

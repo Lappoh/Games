@@ -37,7 +37,7 @@
 
 Основные методы для разработки передвижения:
 
-
+```
 using UnityEngine;                                                                                                                        
 public class PlayerMovement : MonoBehaviour                               
    {                                                                         
@@ -48,7 +48,7 @@ float moveZ = Input.GetAxis("Vertical") * speed * Time.deltaTime;
 transform.Translate(moveX, 0, moveZ);                              
 }                                                                      
 }        
-
+```
 
 ### 3.2 Популярные API Unity
 Представлены методы/классы которые чаще всего используются при разработке игр и их описания:
@@ -70,6 +70,7 @@ Time.deltaTime - Плавное движение.
 Объект с Rigidbody подвержен гравитации и физике.
 
 Пример:
+```
   public class Jump : MonoBehaviour                                    
   {                                                                    
     public float jumpForce = 5f;                                       
@@ -83,7 +84,7 @@ Time.deltaTime - Плавное движение.
         }                                                              
     }                                                                  
   }                                                                    
-
+```
 
 ## 5. UI и меню
 ### 5.1 Canvas
@@ -91,7 +92,7 @@ Time.deltaTime - Плавное движение.
   GameObject → UI → Button/Text/Slider
   
 ### 5.2 Код для UI:
-
+```
   using UnityEngine.UI;                          
   public class HealthBar : MonoBehaviour         
   {                                              
@@ -100,7 +101,7 @@ Time.deltaTime - Плавное движение.
         slider.value = health;                   
     }                                            
   }                                              
-
+```
 ## 6. Оптимизация
 ### 6.1 Gроизводительность
 Используйте Object Pooling вместо Instantiate/Destroy.

@@ -35,9 +35,7 @@
 ### 3.1 Основы
 Скрипты должны наследоваться от MonoBehaviour.
 Основные методы для разработки передвижения:
-|///////////////////////////////////////////////////////////////////////////|
- using UnityEngine;                                                       
-                                                                          
+ using UnityEngine;                                                                                                                        
  public class PlayerMovement : MonoBehaviour                               
  {                                                                         
     public float speed = 5f;                                               
@@ -47,17 +45,16 @@
        transform.Translate(moveX, 0, moveZ);                              
      }                                                                      
  }                                                                         
-|\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\|
 
 ### 3.2 Популярные API Unity
-|//////////////////////////////////////////////////|
-|Метод/Класс	      |          Описание            |
-|Input.GetKey()	    |   Проверка нажатия клавиш.   |
-|Instantiate()	    | Создание объектов в runtime. |
-|Destroy()	        |      Удаление объекта.       |
-|OnCollisionEnter() |   Обработка столкновений.    |
-|Time.deltaTime	    |      Плавное движение.       |
-|\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\|
+
+Метод/Класс	                 Описание            
+Input.GetKey()	       Проверка нажатия клавиш.   
+Instantiate()	     Создание объектов в runtime. 
+Destroy()	              Удаление объекта.       
+OnCollisionEnter()    Обработка столкновений.    
+Time.deltaTime	          Плавное движение.       
+
 
 ## 4.Физика и коллизии
 ### 4.1 Типы коллайдеров
@@ -69,21 +66,20 @@
 Объект с Rigidbody подвержен гравитации и физике.
 
 Пример:
-|///////////////////////////////////////////////////////////////////////|
-|  public class Jump : MonoBehaviour                                    |
-|  {                                                                    |
-|    public float jumpForce = 5f;                                       |
-|    private Rigidbody rb;                                              |
-|    void Start() {                                                     |
-|        rb = GetComponent<Rigidbody>();                                |
-|    }                                                                  |
-|    void Update() {                                                    |
-|        if (Input.GetKeyDown(KeyCode.Space)) {                         |
-|            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);    |
-|        }                                                              |
-|    }                                                                  |
-|  }                                                                    |
-|\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\|
+  public class Jump : MonoBehaviour                                    
+  {                                                                    
+    public float jumpForce = 5f;                                       
+    private Rigidbody rb;                                              
+    void Start() {                                                     
+        rb = GetComponent<Rigidbody>();                                
+    }                                                                  
+    void Update() {                                                    
+        if (Input.GetKeyDown(KeyCode.Space)) {                         
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);    
+        }                                                              
+    }                                                                  
+  }                                                                    
+
 
 ## 5. UI и меню
 ### 5.1 Canvas
@@ -91,16 +87,15 @@
   Настройка через RectTransform.
   
 ### 5.2 Код для UI:
-|/////////////////////////////////////////////////|
-|  using UnityEngine.UI;                          |
-|  public class HealthBar : MonoBehaviour         |
-|  {                                              |
-|    public Slider slider;                        |
-|    public void SetHealth(float health) {        |
-|        slider.value = health;                   |
-|    }                                            |
-|  }                                              |
-|\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\|
+
+  using UnityEngine.UI;                          
+  public class HealthBar : MonoBehaviour         
+  {                                              
+    public Slider slider;                        
+    public void SetHealth(float health) {        
+        slider.value = health;                   
+    }                                            
+  }                                              
 
 ## 6. Оптимизация
 ### 6.1 Gроизводительность

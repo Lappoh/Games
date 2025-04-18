@@ -37,7 +37,7 @@
 
 Основные методы для разработки передвижения:
 
-'''C#
+'''bash
 
 using UnityEngine;                                                                                                                        
 public class PlayerMovement : MonoBehaviour                               

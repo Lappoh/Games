@@ -37,7 +37,6 @@
 
 Основные методы для разработки передвижения:
 
-'''bash
 
 using UnityEngine;                                                                                                                        
 public class PlayerMovement : MonoBehaviour                               
@@ -50,7 +49,7 @@ transform.Translate(moveX, 0, moveZ);
 }                                                                      
 }        
 
-'''
+
 ### 3.2 Популярные API Unity
 Представлены методы/классы которые чаще всего используются при разработке игр и их описания:
           

@@ -80,3 +80,54 @@ void main() {
     FragColor = vec4(1.0, 0.0, 0.0, 1.0);
 }
 ```
+## 5. Физика и AI
+### 5.1. Box2D (C++)
+* Установка через vcpkg:
+```
+vcpkg install box2d
+```
+* Пример создания мира:
+```
+b2World world(b2Vec2(0.0f, -9.8f));
+b2BodyDef groundDef;
+groundDef.position.Set(0.0f, -10.0f);
+b2Body* ground = world.CreateBody(&groundDef);
+```
+### 5.2. Behavior Trees (Unreal Engine)
+* Создайте BT_Asset в Unreal Editor.
+* Настройте ноды в Behavior Tree Editor.
+## 6. Оптимизация и профилирование
+### 6.1. Инструменты VS
+* CPU Usage (Alt+F2) – анализ нагрузки на процессор.
+* Memory Usage – отслеживание утечек памяти.
+* GPU Usage – профилирование графики.
+### 6.2. Оптимизация кода
+* C++:
+  * Используйте constexpr и inline.
+  * Избегайте виртуальных вызовов в горячих участках.
+* C# (Unity):
+  * Кэшируйте компоненты:
+```
+private Rigidbody rb;
+void Start() {
+    rb = GetComponent<Rigidbody>();
+}
+```
+## 7. Сборка и публикация
+### 7.1. Сборка релиза
+* C++: Release конфигурация, /O2 оптимизация.
+* C#:
+```
+dotnet publish -c Release -r win-x64 --self-contained
+```
+### 7.2. Создание установщика
+* Inno Setup:
+  * Скрипт .iss для создания .exe.
+* WIX Toolset:
+  * Генерация .msi-пакетов.
+## 8. Полезные расширения
+* Visual Studio Tools for Unity - Отладка Unity-скриптов
+* Resharper	- Улучшенный IntelliSense
+* C++ CMake Tools	- Поддержка CMake
+* GitHub Extensions	- Интеграция с GitHub
+## 9. Заключение

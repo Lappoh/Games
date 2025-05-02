@@ -130,4 +130,3 @@ dotnet publish -c Release -r win-x64 --self-contained
 * Resharper	- Улучшенный IntelliSense
 * C++ CMake Tools	- Поддержка CMake
 * GitHub Extensions	- Интеграция с GitHub
-## 9. Заключение
